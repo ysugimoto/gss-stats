@@ -65,8 +65,8 @@ func (c Colors) Less(i, j int) bool {
 }
 
 type Property struct {
-	property string `json:"property"`
-	count    int    `json:"count"`
+	Property string `json:"property"`
+	Count    int    `json:"count"`
 }
 
 type Properties []Property
@@ -80,5 +80,5 @@ func (p Properties) Swap(i, j int) {
 }
 
 func (p Properties) Less(i, j int) bool {
-	return p[i].count < p[j].count
+	return p[i].Count < p[j].Count
 }

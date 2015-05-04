@@ -18,6 +18,7 @@ type Stats struct {
 
 	StyleSheets                   int          `json:"stylesheets"`
 	Size                          int          `json:"size"`
+	MediaQueries                  int          `json:"mediaQueries"`
 	DataUriSize                   int          `json:"dataUriSize"`
 	RatioOfDataUriSize            int          `json:"ratioOfDataUriSize"`
 	GzippedSize                   int          `json:"gzippedSize"`
@@ -29,7 +30,7 @@ type Stats struct {
 	MostIdentifier                int          `json:"mostIdentifier"`
 	MostIdentifierSelector        string       `json:"mostIdentifierSelector"`
 	LowestCohesion                int          `json:"lowestCohesion"`
-	LowerCohesionSelector         string       `json:"lowerCohesionSelector"`
+	LowestCohesionSelector        string       `json:"lowestCohesionSelector"`
 	TotalUniqueFontSizes          int          `json:"totalUniqueFontSizes"`
 	UniqueFontSizes               FontSizes    `json:"uniqueFontSizes"`
 	TotalUniqueColors             int          `json:"totalUniqueColors"`
@@ -44,6 +45,8 @@ type Stats struct {
 	FloatProperties               int          `json:"floatProperties"`
 	PropertiesCount               Properties   `json:"propertiesCount"`
 }
+
+var mediaQueryRegex = regexp.MustCompile("^@media")
 
 func NewStats(parsedData *gssp.CSSParseResult) *Stats {
 
@@ -85,7 +88,7 @@ func (s *Stats) Analyze() {
 
 	if len(ruleAnalysis.cssDeclarations) > 0 {
 		s.LowestCohesion = ruleAnalysis.cssDeclarations[0].count
-		s.LowerCohesionSelector = strings.Join(ruleAnalysis.cssDeclarations[0].selector, ", ")
+		s.LowestCohesionSelector = strings.Join(ruleAnalysis.cssDeclarations[0].selector, ", ")
 	}
 
 	s.TotalUniqueFontSizes = len(declAnalysis.uniqueFontSizes)
@@ -124,7 +127,11 @@ func (s *Stats) divide(def *gssp.CSSDefinition) {
 
 	// selectors
 	for _, selector := range strings.Split(def.Selector.String(), ",") {
-		s.selectors = append(s.selectors, strings.Trim(selector, " "))
+		if mediaQueryRegex.MatchString(selector) {
+			s.MediaQueries++
+		} else {
+			s.selectors = append(s.selectors, strings.Trim(selector, " "))
+		}
 	}
 
 	// declarations
@@ -269,8 +276,8 @@ func (s *Stats) analyzeDeclarations() Declarations {
 
 	for prop, count := range props {
 		ret.properties = append(ret.properties, Property{
-			property: prop,
-			count:    count,
+			Property: prop,
+			Count:    count,
 		})
 	}
 

@@ -1,11 +1,11 @@
-# GSSP-STATS
+# GSS-STATS
 
 Golang Style Sheet Statistics Analyzer
 
 ## Installation
 
 ```
-$ go get github.com/ysugimoto/gssp-stats/cmd/gssp-stats
+$ go get github.com/ysugimoto/gss-stats/cmd/gss-stats
 ```
 
 ## Usage
@@ -13,12 +13,12 @@ $ go get github.com/ysugimoto/gssp-stats/cmd/gssp-stats
 Run with `-h` option
 
 ```
-$ gssp-stats -h
+$ gss-stats -h
 ==============================================
-GSSP-STATS: Go Style-Sheet Statistics Analyzer
+GSS-STATS: Go Style-Sheet Statistics Analyzer
 ==============================================
 Usage:
-    gssp-stats [source_file ...] [options]
+    gss-stats [source_file ...] [options]
 
 Options:
     -h, --help : Show this help

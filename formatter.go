@@ -13,90 +13,95 @@ func (f Formatter) Format(s *Stats) {
 	f.WriteSeparator()
 	f.WriteLine("Size", fmt.Sprintf("%d bytes", s.Size))
 	f.WriteSeparator()
-	f.WriteLine("DataUriSize", fmt.Sprintf("%d bytes", s.DataUriSize))
+	f.WriteLine("Data URI Size", fmt.Sprintf("%d bytes", s.DataUriSize))
 	f.WriteSeparator()
-	f.WriteLine("GzippedSize", fmt.Sprintf("%d bytes", s.GzippedSize))
+	f.WriteLine("Ratio of Data URI Size", fmt.Sprintf("%3f %", s.RatioOfDataUriSize))
+	f.WriteSeparator()
+	f.WriteLine("Gzipped Size", fmt.Sprintf("%d bytes", s.GzippedSize))
 	f.WriteSeparator()
 	f.WriteLine("Rules", fmt.Sprintf("%d rules", s.Rules))
 	f.WriteSeparator()
 	f.WriteLine("Selectors", fmt.Sprintf("%d selectors", s.Selectors))
 	f.WriteSeparator()
-	f.WriteLine("Simplicity", fmt.Sprintf("%3f", s.Simplicity))
+	f.WriteLine("Simplicity", fmt.Sprintf("%3f %", s.Simplicity))
 	f.WriteSeparator()
-	f.WriteLine("AverageOfIdentifier", fmt.Sprintf("%3f", s.AverageOfIdentifier))
+	f.WriteLine("Average of Identifier", fmt.Sprintf("%3f", s.AverageOfIdentifier))
 	f.WriteSeparator()
-	f.WriteLine("AverageOfCohesion", fmt.Sprintf("%3f", s.AverageOfCohesion))
+	f.WriteLine("Average of Cohesion", fmt.Sprintf("%3f", s.AverageOfCohesion))
 	f.WriteSeparator()
-	f.WriteLine("MostIdentifier", fmt.Sprintf("%d", s.MostIdentifier))
+	f.WriteLine("Most Identifier", fmt.Sprintf("%d", s.MostIdentifier))
 	f.WriteSeparator()
-	f.WriteLine("MostIdentifierSelector", s.MostIdentifierSelector)
+	f.WriteLine("Most Identifier Selector", s.MostIdentifierSelector)
 	f.WriteSeparator()
-	f.WriteLine("LowestCohesion", fmt.Sprintf("%d", s.LowestCohesion))
+	f.WriteLine("Lowest Cohesion", fmt.Sprintf("%d", s.LowestCohesion))
 	f.WriteSeparator()
-	f.WriteLine("LowerCohesionSelector", s.LowerCohesionSelector)
+	f.WriteLine("Lowest Cohesion Selector", s.LowestCohesionSelector)
 
 	f.WriteSeparator()
-	f.WriteLine("TotalUniqueFontSizes", fmt.Sprintf("%d", s.TotalUniqueFontSizes))
+	f.WriteLine("Total Uniqle Font Sizes", fmt.Sprintf("%d", s.TotalUniqueFontSizes))
 	if s.TotalUniqueFontSizes > 0 {
 		f.WriteSeparator()
 	}
 	for index, fontSize := range s.UniqueFontSizes {
 		if index == 0 {
-			f.WriteLine("UniqueFontSizes", fontSize)
+			f.WriteLine("Unique Font Sizes", fontSize)
 		} else {
 			f.WriteLine("", fontSize)
 		}
 	}
 
 	f.WriteSeparator()
-	f.WriteLine("TotalUniqueColors", fmt.Sprintf("%d", s.TotalUniqueColors))
+	f.WriteLine("Total Unique Colors", fmt.Sprintf("%d", s.TotalUniqueColors))
 	if s.TotalUniqueColors > 0 {
 		f.WriteSeparator()
 	}
 	for index, color := range s.UniqueColors {
 		if index == 0 {
-			f.WriteLine("UniqueColors", color)
+			f.WriteLine("Unique Colors", color)
 		} else {
 			f.WriteLine("", color)
 		}
 	}
 
 	f.WriteSeparator()
-	f.WriteLine("TotalUniqueFontFamilies", fmt.Sprintf("%d", s.TotalUniqueFontFamilies))
+	f.WriteLine("Total Unique Font Families", fmt.Sprintf("%d", s.TotalUniqueFontFamilies))
 	if s.TotalUniqueFontFamilies > 0 {
 		f.WriteSeparator()
 	}
 	for index, fontFamily := range s.UniqueFontFamilies {
 		if index == 0 {
-			f.WriteLine("UniqueFontFamilies", fontFamily)
+			f.WriteLine("Unique Font Families", fontFamily)
 		} else {
 			f.WriteLine("", fontFamily)
 		}
 	}
 
 	f.WriteSeparator()
-	f.WriteLine("IdSelectors", fmt.Sprintf("%d", s.IdSelectors))
+	f.WriteLine("ID Selectors", fmt.Sprintf("%d", s.IdSelectors))
 	f.WriteSeparator()
-	f.WriteLine("UniversalSelectors", fmt.Sprintf("%d", s.UniversalSelectors))
+	f.WriteLine("Universal Selectors", fmt.Sprintf("%d", s.UniversalSelectors))
 	f.WriteSeparator()
-	f.WriteLine("UnqualifiedAttributeSelectors", fmt.Sprintf("%d", s.UnqualifiedAttributeSelectors))
+	f.WriteLine("Unqualified Attribute Selectors", fmt.Sprintf("%d", s.UnqualifiedAttributeSelectors))
 	f.WriteSeparator()
-	f.WriteLine("JavaScriptSpecificSelectors", fmt.Sprintf("%d", s.JavaScriptSpecificSelectors))
+	f.WriteLine("JavaScript Specific Selectors", fmt.Sprintf("%d", s.JavaScriptSpecificSelectors))
 	f.WriteSeparator()
-	f.WriteLine("ImportantKeywords", fmt.Sprintf("%d", s.ImportantKeywords))
+	f.WriteLine("Important Keywords", fmt.Sprintf("%d", s.ImportantKeywords))
 	f.WriteSeparator()
-	f.WriteLine("FloatProperties", fmt.Sprintf("%d", s.FloatProperties))
+	f.WriteLine("Float Properties", fmt.Sprintf("%d", s.FloatProperties))
 
 	if len(s.PropertiesCount) > 0 {
 		f.WriteSeparator()
 	}
 	for index, prop := range s.PropertiesCount {
 		if index == 0 {
-			f.WriteLine("PropertiesCount", fmt.Sprintf("%s: %d", prop.property, prop.count))
+			f.WriteLine("Properties Count", fmt.Sprintf("%s: %d", prop.Property, prop.Count))
 		} else {
-			f.WriteLine("", fmt.Sprintf("%s: %d", prop.property, prop.count))
+			f.WriteLine("", fmt.Sprintf("%s: %d", prop.Property, prop.Count))
 		}
 	}
+
+	f.WriteSeparator()
+	f.WriteLine("Media Queries", fmt.Sprintf("%d", s.MediaQueries))
 	f.WriteFooter()
 
 }

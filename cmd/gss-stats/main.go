@@ -1,7 +1,6 @@
 package main
 
 import (
-	_ "encoding/json"
 	"fmt"
 	"github.com/ysugimoto/go-cliargs"
 	"github.com/ysugimoto/gssp"
@@ -11,10 +10,10 @@ import (
 
 func usage() {
 	text := `==============================================
-GSSP-STATS: Go Style-Sheet Statistics Analyzer
+GSS-STATS: Go Style-Sheet Statistics Analyzer
 ==============================================
 Usage:
-    gssp-stats [source_file ...] [options]
+    gss-stats [source_file ...] [options]
 
 Options:
     -h, --help : Show this help
@@ -56,7 +55,6 @@ func main() {
 	stat := stats.NewStats(result)
 	stat.Analyze()
 	if outputJson, _ := args.GetOptionAsBool("json"); outputJson {
-		//out, _ := json.Marshal(stat.PropertiesCount)
 		fmt.Println(stat.ToPrettyJsonString())
 	} else {
 		stat.FormatOutput()
