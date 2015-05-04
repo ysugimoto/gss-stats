@@ -280,3 +280,12 @@ func (s *Stats) analyzeDeclarations() Declarations {
 
 	return ret
 }
+
+func (s *Stats) FormatOutput() {
+	f := Formatter{}
+	f.Format(s)
+}
+
+func (s *Stats) ToPrettyJsonString() string {
+	return ""
+}
