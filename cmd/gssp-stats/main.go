@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "encoding/json"
 	"fmt"
 	"github.com/ysugimoto/go-cliargs"
 	"github.com/ysugimoto/gssp"
@@ -55,6 +56,7 @@ func main() {
 	stat := stats.NewStats(result)
 	stat.Analyze()
 	if outputJson, _ := args.GetOptionAsBool("json"); outputJson {
+		//out, _ := json.Marshal(stat.PropertiesCount)
 		fmt.Println(stat.ToPrettyJsonString())
 	} else {
 		stat.FormatOutput()

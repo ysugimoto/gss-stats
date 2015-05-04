@@ -33,7 +33,7 @@ func (f Formatter) Format(s *Stats) {
 	f.WriteSeparator()
 	f.WriteLine("LowestCohesion", fmt.Sprintf("%d", s.LowestCohesion))
 	f.WriteSeparator()
-	f.WriteLine("LowersCohesionSelector", s.LowersCohesionSelector)
+	f.WriteLine("LowerCohesionSelector", s.LowerCohesionSelector)
 
 	f.WriteSeparator()
 	f.WriteLine("TotalUniqueFontSizes", fmt.Sprintf("%d", s.TotalUniqueFontSizes))

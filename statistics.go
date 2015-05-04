@@ -3,6 +3,7 @@ package stats
 import (
 	"bytes"
 	"compress/gzip"
+	"encoding/json"
 	"github.com/ysugimoto/gssp"
 	"regexp"
 	"sort"
@@ -10,38 +11,38 @@ import (
 )
 
 type Stats struct {
-	rules        []*gssp.CSSDefinition
-	selectors    []string
-	declarations []*gssp.CSSRule
-	cssString    []byte
+	rules        []*gssp.CSSDefinition `json:"-"`
+	selectors    []string              `json:"-"`
+	declarations []*gssp.CSSRule       `json:"-"`
+	cssString    []byte                `json:"-"`
 
-	StyleSheets                   int
-	Size                          int
-	DataUriSize                   int
-	RatioOfSataUriSize            int
-	GzippedSize                   int
-	Rules                         int
-	Selectors                     int
-	Simplicity                    float32
-	AverageOfIdentifier           float32
-	AverageOfCohesion             float32
-	MostIdentifier                int
-	MostIdentifierSelector        string
-	LowestCohesion                int
-	LowersCohesionSelector        string
-	TotalUniqueFontSizes          int
-	UniqueFontSizes               FontSizes
-	TotalUniqueColors             int
-	UniqueColors                  Colors
-	TotalUniqueFontFamilies       int
-	UniqueFontFamilies            FontFamilies
-	IdSelectors                   int
-	UniversalSelectors            int
-	UnqualifiedAttributeSelectors int
-	JavaScriptSpecificSelectors   int
-	ImportantKeywords             int
-	FloatProperties               int
-	PropertiesCount               Properties
+	StyleSheets                   int          `json:"stylesheets"`
+	Size                          int          `json:"size"`
+	DataUriSize                   int          `json:"dataUriSize"`
+	RatioOfDataUriSize            int          `json:"ratioOfDataUriSize"`
+	GzippedSize                   int          `json:"gzippedSize"`
+	Rules                         int          `json:"rules"`
+	Selectors                     int          `json:"selectors"`
+	Simplicity                    float32      `json:"simplicity"`
+	AverageOfIdentifier           float32      `json:"averageOfIdentifier"`
+	AverageOfCohesion             float32      `json:"averageOfCohesion"`
+	MostIdentifier                int          `json:"mostIdentifier"`
+	MostIdentifierSelector        string       `json:"mostIdentifierSelector"`
+	LowestCohesion                int          `json:"lowestCohesion"`
+	LowerCohesionSelector         string       `json:"lowerCohesionSelector"`
+	TotalUniqueFontSizes          int          `json:"totalUniqueFontSizes"`
+	UniqueFontSizes               FontSizes    `json:"uniqueFontSizes"`
+	TotalUniqueColors             int          `json:"totalUniqueColors"`
+	UniqueColors                  Colors       `json:"uniqueColors"`
+	TotalUniqueFontFamilies       int          `json:"totalUniqueFontFamilies"`
+	UniqueFontFamilies            FontFamilies `json:"uniqueFontFamilies"`
+	IdSelectors                   int          `json:"idSelectors"`
+	UniversalSelectors            int          `json:"universalSelectors"`
+	UnqualifiedAttributeSelectors int          `json:"unqualifiedAttributeSelectors"`
+	JavaScriptSpecificSelectors   int          `json:"javaScriptSpecificSelectors"`
+	ImportantKeywords             int          `json:"importantKeywords"`
+	FloatProperties               int          `json:"floatProperties"`
+	PropertiesCount               Properties   `json:"propertiesCount"`
 }
 
 func NewStats(parsedData *gssp.CSSParseResult) *Stats {
@@ -69,7 +70,7 @@ func (s *Stats) Analyze() {
 	s.StyleSheets = 1
 	s.Size = len(s.cssString)
 	s.DataUriSize = declAnalysis.dataUriSize
-	s.RatioOfSataUriSize = declAnalysis.dataUriSize / s.Size
+	s.RatioOfDataUriSize = declAnalysis.dataUriSize / s.Size
 	s.GzippedSize = s.calculateGzippedSize(s.cssString)
 	s.Rules = len(s.rules)
 	s.Selectors = len(s.selectors)
@@ -84,7 +85,7 @@ func (s *Stats) Analyze() {
 
 	if len(ruleAnalysis.cssDeclarations) > 0 {
 		s.LowestCohesion = ruleAnalysis.cssDeclarations[0].count
-		s.LowersCohesionSelector = strings.Join(ruleAnalysis.cssDeclarations[0].selector, ", ")
+		s.LowerCohesionSelector = strings.Join(ruleAnalysis.cssDeclarations[0].selector, ", ")
 	}
 
 	s.TotalUniqueFontSizes = len(declAnalysis.uniqueFontSizes)
@@ -287,5 +288,6 @@ func (s *Stats) FormatOutput() {
 }
 
 func (s *Stats) ToPrettyJsonString() string {
-	return ""
+	out, _ := json.MarshalIndent(s, "", "  ")
+	return string(out)
 }

@@ -65,8 +65,8 @@ func (c Colors) Less(i, j int) bool {
 }
 
 type Property struct {
-	property string
-	count    int
+	property string `json:"property"`
+	count    int    `json:"count"`
 }
 
 type Properties []Property
