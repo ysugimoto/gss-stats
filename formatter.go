@@ -38,7 +38,7 @@ func (f Formatter) Format(s *Stats) {
 	f.WriteLine("Lowest Cohesion Selector", s.LowestCohesionSelector)
 
 	f.WriteSeparator()
-	f.WriteLine("Total Uniqle Font Sizes", fmt.Sprintf("%d", s.TotalUniqueFontSizes))
+	f.WriteLine("Total Unique Font Sizes", fmt.Sprintf("%d", s.TotalUniqueFontSizes))
 	if s.TotalUniqueFontSizes > 0 {
 		f.WriteSeparator()
 	}
@@ -108,7 +108,7 @@ func (f Formatter) Format(s *Stats) {
 
 func (f Formatter) WriteHeader() {
 	fmt.Printf("===============================================================================\n")
-	fmt.Printf("| %-75s |\n", "Gssp-Stats Result")
+	fmt.Printf("| %-75s |\n", "Gss-Stats Result")
 	fmt.Printf("===============================================================================\n")
 }
 
