@@ -20,7 +20,7 @@ type Stats struct {
 	Size                          int          `json:"size"`
 	MediaQueries                  int          `json:"mediaQueries"`
 	DataUriSize                   int          `json:"dataUriSize"`
-	RatioOfDataUriSize            int          `json:"ratioOfDataUriSize"`
+	RatioOfDataUriSize            float32      `json:"ratioOfDataUriSize"`
 	GzippedSize                   int          `json:"gzippedSize"`
 	Rules                         int          `json:"rules"`
 	Selectors                     int          `json:"selectors"`
@@ -73,7 +73,7 @@ func (s *Stats) Analyze() {
 	s.StyleSheets = 1
 	s.Size = len(s.cssString)
 	s.DataUriSize = declAnalysis.dataUriSize
-	s.RatioOfDataUriSize = declAnalysis.dataUriSize / s.Size
+	s.RatioOfDataUriSize = float32(declAnalysis.dataUriSize) / float32(s.Size)
 	s.GzippedSize = s.calculateGzippedSize(s.cssString)
 	s.Rules = len(s.rules)
 	s.Selectors = len(s.selectors)
